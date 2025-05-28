@@ -1,0 +1,33 @@
+create table cliente (
+	id serial primary key,
+	nome varchar(100) not null,
+	telefone varchar(15) not null,
+	email varchar(100) not null
+);
+
+create table produto (
+	id serial primary key,
+	descricao varchar(100) not null,
+	valor numeric(10,2) not null,
+	categoria varchar(50) not null
+);
+
+create table venda (
+	id serial primary key,
+	observacoes varchar(255),
+	data timestamp default current_timestamp,
+	total numeric(10,2) NOT NULL,
+	fk_cliente_id integer not null,
+	foreign key (fk_cliente_id) references cliente(id)
+);
+
+create table item_venda (
+	id serial primary key,
+	quantidade integer not null,
+	valor_unitario numeric(10,2) not null,
+	valor_total numeric(10,2) not null,
+	fk_venda_id integer not null,
+	fk_produto_id integer not null,
+	foreign key (fk_venda_id) references venda(id),
+	foreign key (fk_produto_id) references produto(id)
+);
