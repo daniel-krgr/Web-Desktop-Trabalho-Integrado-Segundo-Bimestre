@@ -4,6 +4,9 @@
 
 package br.unipar.desktop_trabalho_integrado;
 
+import br.unipar.desktop_trabalho_integrado.view.ViewVenda;
+import javax.swing.JFrame;
+
 /**
  *
  * @author Daniel
@@ -11,6 +14,8 @@ package br.unipar.desktop_trabalho_integrado;
 public class Desktop_Trabalho_Integrado {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        ViewVenda view = new ViewVenda();
+        view.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        view.setVisible(true);
     }
 }
