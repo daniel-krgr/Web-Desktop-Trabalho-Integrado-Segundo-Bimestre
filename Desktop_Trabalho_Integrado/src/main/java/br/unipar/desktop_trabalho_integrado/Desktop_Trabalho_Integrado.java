@@ -4,7 +4,7 @@
 
 package br.unipar.desktop_trabalho_integrado;
 
-import br.unipar.desktop_trabalho_integrado.view.ViewVenda;
+import view.ViewVenda;
 import javax.swing.JFrame;
 
 /**
