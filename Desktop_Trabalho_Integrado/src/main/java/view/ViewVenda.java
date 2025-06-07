@@ -268,7 +268,7 @@ public class ViewVenda extends javax.swing.JFrame {
     private void btRelatoriogeralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRelatoriogeralActionPerformed
         
         ViewRelatorioGeral view = new ViewRelatorioGeral();
-        view.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        view.setExtendedState((int) JFrame.CENTER_ALIGNMENT);
         view.setVisible(true);
     }//GEN-LAST:event_btRelatoriogeralActionPerformed
 
@@ -282,19 +282,19 @@ public class ViewVenda extends javax.swing.JFrame {
 
     private void btRelatorioDetalheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRelatorioDetalheActionPerformed
         ViewRelatorioDetalhado view = new ViewRelatorioDetalhado();
-        view.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        view.setExtendedState((int) JFrame.CENTER_ALIGNMENT);
         view.setVisible(true);
     }//GEN-LAST:event_btRelatorioDetalheActionPerformed
 
     private void btClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btClienteActionPerformed
         ViewCliente view = new ViewCliente();
-        view.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        view.setExtendedState((int) JFrame.CENTER_ALIGNMENT);
         view.setVisible(true);
     }//GEN-LAST:event_btClienteActionPerformed
 
     private void btProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProdutoActionPerformed
         ViewProduto view = new ViewProduto();
-        view.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        view.setExtendedState((int) JFrame.CENTER_ALIGNMENT);
         view.setVisible(true);
     }//GEN-LAST:event_btProdutoActionPerformed
 

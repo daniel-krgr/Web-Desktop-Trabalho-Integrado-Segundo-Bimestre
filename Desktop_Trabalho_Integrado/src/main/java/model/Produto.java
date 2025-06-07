@@ -9,7 +9,7 @@ package model;
  * @author mateu
  */
 public class Produto {
-  private int id;
+    private Long id;
     private String nome;
     private Double preco;
     private Integer estoque; 
@@ -17,13 +17,14 @@ public class Produto {
     public Produto() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
+
 
     public String getNome() {
         return nome;

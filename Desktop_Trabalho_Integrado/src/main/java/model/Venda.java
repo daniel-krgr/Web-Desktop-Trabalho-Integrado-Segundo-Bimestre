@@ -11,20 +11,21 @@ import java.util.List;
  * @author mateu
  */
 public class Venda {
- private int id;
+    private Long id;
     private Cliente cliente;
     private List<ItemVenda> itens;
     private double total;
     private String observacao;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
+ 
     public Cliente getCliente() {
         return cliente;
     }
