@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Daniel
  */
-public class ViewPrincipal extends javax.swing.JFrame {
+public class ViewPrincipal extends javax.swing.JFrame implements iListener {
 
     private ItemVendaDAO itemVendaDAO;
     private ArrayList<ItemVenda> itensVenda;
@@ -225,4 +225,16 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JTable tbProdutos;
     private javax.swing.JTextField tfQuantidade;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void Cliente(int cod, String nome) {
+        // adiciona os dados na tabela
+        lbClienteSelecionado.setText(nome);
+    }
+
+    @Override
+    public void Produto(int cod, String desc, double vlr) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

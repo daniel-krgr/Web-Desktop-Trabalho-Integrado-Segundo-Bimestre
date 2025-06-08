@@ -6,6 +6,7 @@ package view;
 
 import dto.ClienteDTO;
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 import service.ClienteService;
 
@@ -13,8 +14,14 @@ import service.ClienteService;
  *
  * @author Daniel
  */
-public class ViewSelecionarCliente extends javax.swing.JFrame {
+public class ViewSelecionarCliente extends javax.swing.JFrame {    
+    private iListener listener;
+    
 
+    /**
+     * Creates new form ServicosFrame
+     */
+    
     private ClienteDTO clienteDTO;
     private ArrayList<ClienteDTO> ListaClientes;
     private boolean clienteSelecionado;
@@ -25,6 +32,17 @@ public class ViewSelecionarCliente extends javax.swing.JFrame {
     public ViewSelecionarCliente() {
         initComponents();
         atualizaGrid();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLayout(null);
+        setLocationRelativeTo(null);        
+    }
+    
+    public ViewSelecionarCliente(iListener listerner) {
+        this.listener = listerner;
+        initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLayout(null);
+        setLocationRelativeTo(null);    
     }
     
     public void atualizaGrid(){
@@ -79,6 +97,11 @@ public class ViewSelecionarCliente extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tbClientes);
 
         btAdicionar.setText("Adicionar");
+        btAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAdicionarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -105,6 +128,24 @@ public class ViewSelecionarCliente extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
+        int selectedRow = tbClientes.getSelectedRow();
+        if (selectedRow != -1) {
+            //Object codObj     = tbClientes.getValueAt(selectedRow, 0);
+            Object nomeObj = tbClientes.getValueAt(selectedRow, 0);//nome do cliente
+
+            //int cod        = (int) codObj;
+            String nome    = (String) nomeObj;
+            listener.Cliente(1, nome);
+        }
+        // fecha janela ao criar no botão
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                dispose(); // Ensure the current instance of ServicoFrame is closed
+            }
+        });
+    }//GEN-LAST:event_btAdicionarActionPerformed
 
    
 
