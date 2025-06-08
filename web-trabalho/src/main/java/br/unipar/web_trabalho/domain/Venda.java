@@ -18,7 +18,7 @@ import java.sql.Timestamp;
 public class Venda {
 
     public Venda(VendaRequestDTO vendaRequestDTO) {
-        this.observaccoes = vendaRequestDTO.getObservaccoes();
+        this.observaccoes = vendaRequestDTO.getObservacoes();
         this.valorTotal = vendaRequestDTO.getValorTotal();
         Cliente cliente = new Cliente();
         cliente.setId(vendaRequestDTO.getClienteId());
@@ -28,7 +28,7 @@ public class Venda {
 
     public Venda(Long id, VendaRequestDTO vendaRequestDTO) {
         this.id = id;
-        this.observaccoes = vendaRequestDTO.getObservaccoes();
+        this.observaccoes = vendaRequestDTO.getObservacoes();
         this.valorTotal = vendaRequestDTO.getValorTotal();
         Cliente cliente = new Cliente();
         cliente.setId(vendaRequestDTO.getClienteId());
