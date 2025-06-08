@@ -10,4 +10,11 @@ package model;
  */
 public class ItemVenda {
     
+    private int id;
+    private String descricao;
+    private double valor;
+    private 
+    
+    
+    
 }
