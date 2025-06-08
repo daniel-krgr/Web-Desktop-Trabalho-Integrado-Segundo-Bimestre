@@ -6,9 +6,11 @@ package view;
 
 import dto.ProdutoDTO;
 import java.util.ArrayList;
+import java.util.ArrayList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import service.ProdutoService;
 
 /**
  *
@@ -28,55 +30,25 @@ public class ViewSelecionarProduto extends javax.swing.JFrame {
     }
     
     public void atualizaGrid(){
-        try{
+      try {
+        listaProdutos = (ArrayList<ProdutoDTO>) ProdutoService.buscaProdutos();
 
-            //Retornando dados da tabela
-            String sql = "SELECT * FROM public.\"Aluno\" Order by \"RA_ALUNO\";";
-            listaProdutos = new ArrayList<>();
-            listaProdutos = produtoDTO.retornarLista(sql);
+        String[] colunas = {"Descrição", "Valor", "Categoria"};
+        DefaultTableModel modelo = new DefaultTableModel(colunas, 0);
 
-            //Limpar a tabela
-            tbProdutos.removeAll();
+        for (ProdutoDTO produto : listaProdutos) {
+            Object[] linha = {
+                produto.getDescricao(),
+                produto.getValor(),
+                produto.getCategoria()
+            };
+            modelo.addRow(linha);
+        }
 
-            //Criar as colunas
-            DefaultTableModel tableModel =
-                    new DefaultTableModel(new Object[][]{},
-                            new String[]{"Descrição", "Categoria", "Quantidade"}){
+        tbProdutos.setModel(modelo);
 
-                        //Adicionado para não deixar alterar as células da tabela
-                        @Override
-                        public boolean isCellEditable(int row, int column) {
-                            return false;
-                        }
-                    };
-
-            //setar as colunas na tabela
-            tbProdutos.setModel(tableModel);
-
-            //Adicionar os dados na tabela
-            DefaultTableModel dm = (DefaultTableModel) tbProdutos.getModel();
-            for (ItemVenda itemVenda : itensVenda) {
-
-                dm.addRow(new Object[]{itemVenda.getProdutoId().get,
-                        aluno.getNomeAluno(), aluno.getDtNascAluno()});
-
-            }
-
-            //selecionar um aluno na tabela
-            tbProdutos.getSelectionModel()
-                    .addListSelectionListener(new ListSelectionListener() {
-                        @Override
-                        public void valueChanged(ListSelectionEvent e) {
-                            //Testar se selecionou algum aluno na grid
-                            int linhaSelecionada = tbProdutos.getSelectedRow();
-                            if(linhaSelecionada != -1){
-                                mostrarDadosAluno(itensVenda.get(linhaSelecionada));
-                            }
-                        }
-                    });
-
-        }catch(Exception ex){
-
+        } catch (Exception ex) {
+            ex.printStackTrace(); // ou exibir uma mensagem de erro em uma dialog
         }
     }
 

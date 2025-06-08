@@ -1,3 +1,5 @@
+package service;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -14,6 +16,7 @@ import dto.ProdutoDTO;
  *
  * @author Daniel
  */
+
 public class ProdutoService {
     private static String URLWEBSERVICE = "http://localhost:8080/produtos";
     private static int SUCESSO = 200;
