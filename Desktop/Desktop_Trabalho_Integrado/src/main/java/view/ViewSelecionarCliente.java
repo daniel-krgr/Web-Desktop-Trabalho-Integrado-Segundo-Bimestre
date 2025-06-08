@@ -5,8 +5,9 @@
 package view;
 
 import dto.ClienteDTO;
-import dto.ProdutoDTO;
 import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import service.ClienteService;
 
 /**
  *
@@ -24,6 +25,29 @@ public class ViewSelecionarCliente extends javax.swing.JFrame {
     public ViewSelecionarCliente() {
         initComponents();
     }
+    
+    public void atualizaGrid(){
+      try {
+        ListaClientes = (ArrayList<ClienteDTO>) ClienteService.buscaClientes();
+
+        String[] colunas = {"Nome", "Telefone", "Email"};
+        DefaultTableModel modelo = new DefaultTableModel(colunas, 0);
+
+        for (ClienteDTO cliente : ListaClientes) {
+            Object[] linha = {
+                cliente.getNome(),
+                cliente.getTelefone(),
+                cliente.getEmail()
+            };
+            modelo.addRow(linha);
+        }
+
+        tbClientes.setModel(modelo);
+
+        } catch (Exception ex) {
+            ex.printStackTrace(); // ou exibir uma mensagem de erro em uma dialog
+        }
+    }    
 
     /**
      * This method is called from within the constructor to initialize the form.
