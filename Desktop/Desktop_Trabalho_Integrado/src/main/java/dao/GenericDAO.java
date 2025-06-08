@@ -5,6 +5,7 @@
 package dao;
 
 import conexaoBD.ConexaoPostgres;
+import model.ItemVenda;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

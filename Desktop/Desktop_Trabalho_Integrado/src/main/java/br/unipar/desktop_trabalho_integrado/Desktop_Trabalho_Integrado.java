@@ -14,7 +14,7 @@ import view.ViewPrincipal;
 public class Desktop_Trabalho_Integrado {
 
     public static void main(String[] args) {
-        
+
         ViewPrincipal view = new ViewPrincipal();
         view.setExtendedState(JFrame.MAXIMIZED_BOTH);
         view.setVisible(true);

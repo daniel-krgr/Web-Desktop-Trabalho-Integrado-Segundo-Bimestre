@@ -4,11 +4,20 @@
  */
 package view;
 
+import dao.ItemVendaDAO;
+import model.ItemVenda;
+
+import java.util.ArrayList;
+
 /**
  *
  * @author Daniel
  */
 public class ViewPrincipal extends javax.swing.JFrame {
+
+    private ItemVendaDAO itemVendaDAO;
+    private ArrayList<ItemVenda> itensVenda;
+    private boolean produtoSelecionado;
 
     /**
      * Creates new form ViewPrincipal
@@ -16,6 +25,60 @@ public class ViewPrincipal extends javax.swing.JFrame {
     public ViewPrincipal() {
         initComponents();
     }
+
+    public void atualizaGrid(){
+        try{
+
+            //Retornando dados da tabela
+            String sql = "SELECT * FROM public.\"Aluno\" Order by \"RA_ALUNO\";";
+            itensVenda = new ArrayList<>();
+            itensVenda = itemVendaDAO.retornarLista(sql);
+
+            //Limpar a tabela
+            tbAlunos.removeAll();
+
+            //Criar as colunas
+            DefaultTableModel tableModel =
+                    new DefaultTableModel(new Object[][]{},
+                            new String[]{"RA", "Nome", "Dt. Nascimento"}){
+
+                        //Adicionado para não deixar alterar as células da tabela
+                        @Override
+                        public boolean isCellEditable(int row, int column) {
+                            return false;
+                        }
+                    };
+
+            //setar as colunas na tabela
+            tbAlunos.setModel(tableModel);
+
+            //Adicionar os dados na tabela
+            DefaultTableModel dm = (DefaultTableModel) tbAlunos.getModel();
+            for (Aluno aluno : listaAlunos) {
+
+                dm.addRow(new Object[]{aluno.getRaAluno(),
+                        aluno.getNomeAluno(), aluno.getDtNascAluno()});
+
+            }
+
+            //selecionar um aluno na tabela
+            tbAlunos.getSelectionModel()
+                    .addListSelectionListener(new ListSelectionListener() {
+                        @Override
+                        public void valueChanged(ListSelectionEvent e) {
+                            //Testar se selecionou algum aluno na grid
+                            int linhaSelecionada = tbAlunos.getSelectedRow();
+                            if(linhaSelecionada != -1){
+                                mostrarDadosAluno(listaAlunos.get(linhaSelecionada));
+                            }
+                        }
+                    });
+
+        }catch(Exception ex){
+
+        }
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -71,6 +134,11 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         btSelecionarProduto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btSelecionarProduto.setText("Selecionar Produto");
+        btSelecionarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSelecionarProdutoActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Produto:");
@@ -86,6 +154,17 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         btAdicionarProduto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btAdicionarProduto.setText("Adicionar Produto");
+        btAdicionarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAdicionarProdutoActionPerformed(evt);
+            }
+        });
+
+        tfQuantidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfQuantidadeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -161,40 +240,19 @@ public class ViewPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btSelecionarClienteActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ViewPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ViewPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ViewPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ViewPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void tfQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfQuantidadeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfQuantidadeActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ViewPrincipal().setVisible(true);
-            }
-        });
-    }
+    private void btSelecionarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelecionarProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btSelecionarProdutoActionPerformed
+
+    private void btAdicionarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btAdicionarProdutoActionPerformed
+
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAdicionarProduto;

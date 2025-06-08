@@ -17,6 +17,18 @@ public class ItemVenda {
     private Long vendaId;
     private Long produtoId;
 
+    public ItemVenda() {
+    }
+
+    public ItemVenda(int id, int vendaId, int produtoId, int quantidade, double valorUnitario) {
+        this.id = id;
+        this.vendaId = (long) vendaId;
+        this.produtoId = (long) produtoId;
+        this.quantidade = quantidade;
+        this.valorUnitario = valorUnitario;
+        this.valorTotal = quantidade * valorUnitario;
+    }
+
     public int getId() {
         return id;
     }
