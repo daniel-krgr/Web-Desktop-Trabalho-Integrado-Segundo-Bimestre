@@ -13,7 +13,7 @@ public class VendaService {
     private static String URLWEBSERVICE = "http://localhost:8080/vendas";
     private static int SUCESSO = 201; // 201 Created
 
-    public static void criarVenda(VendaCreateDTO VendaDTO) throws Exception {
+    public static void criarVenda(VendaDTO vendaDTO) throws Exception {
         try {
             URL url = new URL(URLWEBSERVICE);
             HttpURLConnection conexao = (HttpURLConnection) url.openConnection();
@@ -22,7 +22,7 @@ public class VendaService {
             conexao.setDoOutput(true); // permite enviar o corpo da requisição
 
             Gson gson = new Gson();
-            String json = gson.toJson(VendaDTO);
+            String json = gson.toJson(vendaDTO);
 
             // Escrevendo o corpo da requisição
             OutputStream outputStream = conexao.getOutputStream();

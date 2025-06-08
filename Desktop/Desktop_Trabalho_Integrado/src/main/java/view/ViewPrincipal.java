@@ -8,6 +8,9 @@ import dao.ItemVendaDAO;
 import model.ItemVenda;
 
 import java.util.ArrayList;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -35,12 +38,12 @@ public class ViewPrincipal extends javax.swing.JFrame {
             itensVenda = itemVendaDAO.retornarLista(sql);
 
             //Limpar a tabela
-            tbAlunos.removeAll();
+            tbProdutos.removeAll();
 
             //Criar as colunas
             DefaultTableModel tableModel =
                     new DefaultTableModel(new Object[][]{},
-                            new String[]{"RA", "Nome", "Dt. Nascimento"}){
+                            new String[]{"Descrição", "Categoria", "Quantidade"}){
 
                         //Adicionado para não deixar alterar as células da tabela
                         @Override
@@ -50,26 +53,26 @@ public class ViewPrincipal extends javax.swing.JFrame {
                     };
 
             //setar as colunas na tabela
-            tbAlunos.setModel(tableModel);
+            tbProdutos.setModel(tableModel);
 
             //Adicionar os dados na tabela
-            DefaultTableModel dm = (DefaultTableModel) tbAlunos.getModel();
-            for (Aluno aluno : listaAlunos) {
+            DefaultTableModel dm = (DefaultTableModel) tbProdutos.getModel();
+            for (ItemVenda itemVenda : itensVenda) {
 
-                dm.addRow(new Object[]{aluno.getRaAluno(),
+                dm.addRow(new Object[]{itemVenda.getProdutoId().get,
                         aluno.getNomeAluno(), aluno.getDtNascAluno()});
 
             }
 
             //selecionar um aluno na tabela
-            tbAlunos.getSelectionModel()
+            tbProdutos.getSelectionModel()
                     .addListSelectionListener(new ListSelectionListener() {
                         @Override
                         public void valueChanged(ListSelectionEvent e) {
                             //Testar se selecionou algum aluno na grid
-                            int linhaSelecionada = tbAlunos.getSelectedRow();
+                            int linhaSelecionada = tbProdutos.getSelectedRow();
                             if(linhaSelecionada != -1){
-                                mostrarDadosAluno(listaAlunos.get(linhaSelecionada));
+                                mostrarDadosAluno(itensVenda.get(linhaSelecionada));
                             }
                         }
                     });
@@ -77,6 +80,17 @@ public class ViewPrincipal extends javax.swing.JFrame {
         }catch(Exception ex){
 
         }
+    }
+    
+    private void mostrarDados(ItemVenda itemVenda){
+        
+        tfRA.setText(String.valueOf(aluno.getRaAluno()));
+        tfNome.setText(aluno.getNomeAluno());
+        tfDtNasc.setText(aluno.getDtNascAluno());
+        btSalvar.setEnabled(false);
+        alunoSelecionado = true;
+        tfRA.setEditable(false);
+        
     }
 
 
@@ -237,7 +251,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSelecionarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelecionarClienteActionPerformed
-        // TODO add your handling code here:
+        new ViewSelecionarProduto().setVisible(true);
     }//GEN-LAST:event_btSelecionarClienteActionPerformed
 
     private void tfQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfQuantidadeActionPerformed
