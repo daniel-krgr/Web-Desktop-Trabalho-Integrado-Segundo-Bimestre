@@ -30,68 +30,10 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }
 
     public void atualizaGrid(){
-        try{
-
-            //Retornando dados da tabela
-            String sql = "SELECT * FROM public.\"Aluno\" Order by \"RA_ALUNO\";";
-            itensVenda = new ArrayList<>();
-            itensVenda = itemVendaDAO.retornarLista(sql);
-
-            //Limpar a tabela
-            tbProdutos.removeAll();
-
-            //Criar as colunas
-            DefaultTableModel tableModel =
-                    new DefaultTableModel(new Object[][]{},
-                            new String[]{"Descrição", "Categoria", "Quantidade"}){
-
-                        //Adicionado para não deixar alterar as células da tabela
-                        @Override
-                        public boolean isCellEditable(int row, int column) {
-                            return false;
-                        }
-                    };
-
-            //setar as colunas na tabela
-            tbProdutos.setModel(tableModel);
-
-            //Adicionar os dados na tabela
-            DefaultTableModel dm = (DefaultTableModel) tbProdutos.getModel();
-            for (ItemVenda itemVenda : itensVenda) {
-
-                dm.addRow(new Object[]{itemVenda.getProdutoId().get,
-                        aluno.getNomeAluno(), aluno.getDtNascAluno()});
-
-            }
-
-            //selecionar um aluno na tabela
-            tbProdutos.getSelectionModel()
-                    .addListSelectionListener(new ListSelectionListener() {
-                        @Override
-                        public void valueChanged(ListSelectionEvent e) {
-                            //Testar se selecionou algum aluno na grid
-                            int linhaSelecionada = tbProdutos.getSelectedRow();
-                            if(linhaSelecionada != -1){
-                                mostrarDadosAluno(itensVenda.get(linhaSelecionada));
-                            }
-                        }
-                    });
-
-        }catch(Exception ex){
-
-        }
+        
     }
     
-    private void mostrarDados(ItemVenda itemVenda){
-        
-        tfRA.setText(String.valueOf(aluno.getRaAluno()));
-        tfNome.setText(aluno.getNomeAluno());
-        tfDtNasc.setText(aluno.getDtNascAluno());
-        btSalvar.setEnabled(false);
-        alunoSelecionado = true;
-        tfRA.setEditable(false);
-        
-    }
+    
 
 
     /**
@@ -251,7 +193,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSelecionarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelecionarClienteActionPerformed
-        new ViewSelecionarProduto().setVisible(true);
+        new ViewSelecionarCliente().setVisible(true);
     }//GEN-LAST:event_btSelecionarClienteActionPerformed
 
     private void tfQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfQuantidadeActionPerformed
@@ -259,7 +201,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_tfQuantidadeActionPerformed
 
     private void btSelecionarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelecionarProdutoActionPerformed
-        // TODO add your handling code here:
+        new ViewSelecionarProduto().setVisible(true);
     }//GEN-LAST:event_btSelecionarProdutoActionPerformed
 
     private void btAdicionarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarProdutoActionPerformed
