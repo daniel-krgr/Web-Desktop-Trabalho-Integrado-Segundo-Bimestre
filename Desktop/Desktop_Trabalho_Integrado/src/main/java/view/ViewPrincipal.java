@@ -193,7 +193,8 @@ public class ViewPrincipal extends javax.swing.JFrame implements iListener {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSelecionarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelecionarClienteActionPerformed
-        new ViewSelecionarCliente().setVisible(true);
+        ViewSelecionarCliente viewSelecionarCliente = new ViewSelecionarCliente(this);
+        viewSelecionarCliente.setVisible(true);
     }//GEN-LAST:event_btSelecionarClienteActionPerformed
 
     private void tfQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfQuantidadeActionPerformed
