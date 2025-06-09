@@ -19,6 +19,8 @@ import service.VendaService;
  * @author Daniel
  */
 public class ViewPrincipal extends javax.swing.JFrame implements iListener {
+    
+    int idCliente;
 
     private ItemVendaDAO itemVendaDAO;
     private ArrayList<ItemVenda> itensVenda;
@@ -209,7 +211,7 @@ public class ViewPrincipal extends javax.swing.JFrame implements iListener {
             VendaDTO venda = new VendaDTO();
             venda.setObservacoes(tfObservacoes.getText());
             venda.setValorTotal(150.00);      // Total da venda
-            venda.setClienteId(2);            // ID do cliente (exemplo)
+            venda.setClienteId(idCliente);    // ID do cliente (exemplo)
 
             // Enviar para o serviço
             VendaService.criarVenda(venda);
@@ -241,7 +243,8 @@ public class ViewPrincipal extends javax.swing.JFrame implements iListener {
     @Override
     public void Cliente(int cod, String nome) {
         // adiciona os dados na tabela
-        lbClienteSelecionado.setText(nome);
+        lbClienteSelecionado.setText(nome + " - cod:" + cod);
+        idCliente = cod;
     }
 
     @Override

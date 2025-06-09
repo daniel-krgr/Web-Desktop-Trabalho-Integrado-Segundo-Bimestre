@@ -50,7 +50,7 @@ public class ViewSelecionarCliente extends javax.swing.JFrame {
       try {
         ListaClientes = (ArrayList<ClienteDTO>) ClienteService.buscaClientes();
 
-        String[] colunas = {"Nome", "Telefone", "Email"};
+        String[] colunas = {"cod", "Nome", "Telefone", "Email"};
         DefaultTableModel modelo = new DefaultTableModel(colunas, 0){
             //Adicionado para não deixar alterar as células da tabela        
                 @Override
@@ -61,6 +61,7 @@ public class ViewSelecionarCliente extends javax.swing.JFrame {
 
         for (ClienteDTO cliente : ListaClientes) {
             Object[] linha = {
+                cliente.getId(),
                 cliente.getNome(),
                 cliente.getTelefone(),
                 cliente.getEmail()
@@ -143,12 +144,12 @@ public class ViewSelecionarCliente extends javax.swing.JFrame {
     private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
         int selectedRow = tbClientes.getSelectedRow();
         if (selectedRow != -1) {
-            //Object codObj     = tbClientes.getValueAt(selectedRow, 0);
-            Object nomeObj = tbClientes.getValueAt(selectedRow, 0);//nome do cliente
+            Object codObj     = tbClientes.getValueAt(selectedRow, 0);
+            Object nomeObj = tbClientes.getValueAt(selectedRow, 1);//nome do cliente
 
-            //int cod        = (int) codObj;
+            int cod        = (int) codObj;
             String nome    = (String) nomeObj;
-            listener.Cliente(1, nome);
+            listener.Cliente(cod, nome);
         }
         // fecha janela ao criar no botão
         java.awt.EventQueue.invokeLater(new Runnable() {

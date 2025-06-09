@@ -53,7 +53,7 @@ public class ViewSelecionarProduto extends javax.swing.JFrame {
       try {
         listaProdutos = (ArrayList<ProdutoDTO>) ProdutoService.buscaProdutos();
 
-        String[] colunas = {"Descrição", "Valor", "Categoria"};
+        String[] colunas = {"cod","Descrição", "Valor", "Categoria"};
         DefaultTableModel modelo = new DefaultTableModel(colunas, 0){
             //Adicionado para não deixar alterar as células da tabela        
                 @Override
@@ -64,6 +64,7 @@ public class ViewSelecionarProduto extends javax.swing.JFrame {
 
         for (ProdutoDTO produto : listaProdutos) {
             Object[] linha = {
+                produto.getId(),
                 produto.getDescricao(),
                 produto.getValor(),
                 produto.getCategoria()
@@ -212,15 +213,15 @@ public class ViewSelecionarProduto extends javax.swing.JFrame {
     private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
         int selectedRow = tbProdutos.getSelectedRow();
         if (selectedRow != -1) {
-            //Object codObj     = tbClientes.getValueAt(selectedRow, 0);
-            Object nomeObj  = tbProdutos.getValueAt(selectedRow, 0);
-            Object valorObj = tbProdutos.getValueAt(selectedRow, 1);
+            Object codObj     = tbProdutos.getValueAt(selectedRow, 0);
+            Object nomeObj  = tbProdutos.getValueAt(selectedRow, 1);
+            Object valorObj = tbProdutos.getValueAt(selectedRow, 2);
 
             int cod        = (int) codObj;
             String nome    = (String) nomeObj;
             double valor   = ((Number) valorObj).doubleValue();
             double qtd     = Double.parseDouble(tfQuantidade.getText());
-            listener.Produto(1, nome, valor, qtd);
+            listener.Produto(cod, nome, valor, qtd);
         }
         // fecha janela ao criar no botão
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -229,7 +230,6 @@ public class ViewSelecionarProduto extends javax.swing.JFrame {
             }
         });
         
-        Produ
         
     }//GEN-LAST:event_btAdicionarActionPerformed
 
