@@ -24,6 +24,11 @@ public class ViewSelecionarProduto extends javax.swing.JFrame {
     private ArrayList<ProdutoDTO> listaProdutos;
     private boolean produtoSelecionado;
     
+    private String descricao;
+    private double valor;
+    private String categoria;
+    
+    
     /**
      * Creates new form ViewSelecionarProduto
      */
@@ -37,8 +42,8 @@ public class ViewSelecionarProduto extends javax.swing.JFrame {
  
     public ViewSelecionarProduto(iListener listerner) {
         this.listener = listerner;
-        atualizaGrid();
         initComponents();
+        atualizaGrid();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(null);
         setLocationRelativeTo(null);    
@@ -49,7 +54,13 @@ public class ViewSelecionarProduto extends javax.swing.JFrame {
         listaProdutos = (ArrayList<ProdutoDTO>) ProdutoService.buscaProdutos();
 
         String[] colunas = {"Descrição", "Valor", "Categoria"};
-        DefaultTableModel modelo = new DefaultTableModel(colunas, 0);
+        DefaultTableModel modelo = new DefaultTableModel(colunas, 0){
+            //Adicionado para não deixar alterar as células da tabela        
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false; 
+                }
+        };
 
         for (ProdutoDTO produto : listaProdutos) {
             Object[] linha = {
@@ -61,10 +72,32 @@ public class ViewSelecionarProduto extends javax.swing.JFrame {
         }
 
         tbProdutos.setModel(modelo);
+        
+        tbProdutos.getSelectionModel()
+                    .addListSelectionListener(new ListSelectionListener() {
+                @Override
+                public void valueChanged(ListSelectionEvent e) {
+                    //Testar se selecionou algum produto na grid
+                    int linhaSelecionada = tbProdutos.getSelectedRow();
+                    if(linhaSelecionada != -1){
+                        mostrarDadosProduto(listaProdutos.get(linhaSelecionada));
+                    }
+                }
+            });
 
         } catch (Exception ex) {
             ex.printStackTrace(); // ou exibir uma mensagem de erro em uma dialog
         }
+    }
+    private void mostrarDadosProduto(ProdutoDTO produtoDTO){
+
+        descricao = produtoDTO.getDescricao();
+        valor = produtoDTO.getValor();
+        categoria = produtoDTO.getCategoria();
+
+        lbProdutoSelecionado.setText(produtoDTO.getDescricao());
+      
+        
     }
 
     /**
@@ -76,11 +109,26 @@ public class ViewSelecionarProduto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbProdutos = new javax.swing.JTable();
         btAdicionar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         tfQuantidade = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        lbProdutoSelecionado = new javax.swing.JLabel();
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -107,6 +155,22 @@ public class ViewSelecionarProduto extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Quantidade:");
 
+        jLabel2.setText("Produto selecionado:");
+
+        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lbProdutoSelecionado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lbProdutoSelecionado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -115,11 +179,14 @@ public class ViewSelecionarProduto extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 807, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -133,7 +200,9 @@ public class ViewSelecionarProduto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btAdicionar, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                     .addComponent(tfQuantidade)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -166,7 +235,11 @@ public class ViewSelecionarProduto extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAdicionar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbProdutoSelecionado;
     private javax.swing.JTable tbProdutos;
     private javax.swing.JTextField tfQuantidade;
     // End of variables declaration//GEN-END:variables

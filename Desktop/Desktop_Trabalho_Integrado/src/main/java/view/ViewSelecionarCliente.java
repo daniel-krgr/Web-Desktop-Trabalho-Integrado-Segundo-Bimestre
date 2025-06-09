@@ -40,6 +40,7 @@ public class ViewSelecionarCliente extends javax.swing.JFrame {
     public ViewSelecionarCliente(iListener listerner) {
         this.listener = listerner;
         initComponents();
+        atualizaGrid();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(null);
         setLocationRelativeTo(null);    
@@ -50,7 +51,13 @@ public class ViewSelecionarCliente extends javax.swing.JFrame {
         ListaClientes = (ArrayList<ClienteDTO>) ClienteService.buscaClientes();
 
         String[] colunas = {"Nome", "Telefone", "Email"};
-        DefaultTableModel modelo = new DefaultTableModel(colunas, 0);
+        DefaultTableModel modelo = new DefaultTableModel(colunas, 0){
+            //Adicionado para não deixar alterar as células da tabela        
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false; 
+                }
+        };
 
         for (ClienteDTO cliente : ListaClientes) {
             Object[] linha = {
@@ -59,7 +66,11 @@ public class ViewSelecionarCliente extends javax.swing.JFrame {
                 cliente.getEmail()
             };
             modelo.addRow(linha);
+            
+            
         }
+        
+        
 
         tbClientes.setModel(modelo);
 
