@@ -10,10 +10,20 @@ package dto;
  */
 public class VendaDTO {
 
+    private int id;
     private String observacoes;
     private Double valorTotal;
     private int clienteId;
 
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public String getObservacoes() {
         return observacoes;
     }

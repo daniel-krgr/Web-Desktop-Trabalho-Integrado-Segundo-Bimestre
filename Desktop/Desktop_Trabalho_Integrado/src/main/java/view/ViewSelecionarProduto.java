@@ -213,10 +213,10 @@ public class ViewSelecionarProduto extends javax.swing.JFrame {
         int selectedRow = tbProdutos.getSelectedRow();
         if (selectedRow != -1) {
             //Object codObj     = tbClientes.getValueAt(selectedRow, 0);
-            Object nomeObj  = tbProdutos.getValueAt(selectedRow, 0);//nome do cliente
+            Object nomeObj  = tbProdutos.getValueAt(selectedRow, 0);
             Object valorObj = tbProdutos.getValueAt(selectedRow, 1);
 
-            //int cod        = (int) codObj;
+            int cod        = (int) codObj;
             String nome    = (String) nomeObj;
             double valor   = ((Number) valorObj).doubleValue();
             double qtd     = Double.parseDouble(tfQuantidade.getText());
@@ -228,6 +228,9 @@ public class ViewSelecionarProduto extends javax.swing.JFrame {
                 dispose(); // Ensure the current instance of ServicoFrame is closed
             }
         });
+        
+        Produ
+        
     }//GEN-LAST:event_btAdicionarActionPerformed
 
     

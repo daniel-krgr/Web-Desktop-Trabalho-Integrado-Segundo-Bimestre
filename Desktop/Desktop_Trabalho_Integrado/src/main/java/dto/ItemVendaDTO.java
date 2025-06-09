@@ -10,12 +10,22 @@ package dto;
  */
 public class ItemVendaDTO {
     
+    private int id;
     private int quantidade;
     private double valorUnitario;
     private double valorTotal;
     private Long produtoId;
     private Long vendaId;
 
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public int getQuantidade() {
         return quantidade;
     }

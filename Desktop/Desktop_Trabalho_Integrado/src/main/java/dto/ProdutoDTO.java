@@ -10,10 +10,20 @@ package dto;
  */
 public class ProdutoDTO {
 
+    
+    private int id;
     private String descricao;
     private Double valor;
     private String categoria;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public String getDescricao() {
         return descricao;
     }
