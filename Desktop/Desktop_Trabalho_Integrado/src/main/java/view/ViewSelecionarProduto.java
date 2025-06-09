@@ -7,6 +7,7 @@ package view;
 import dto.ProdutoDTO;
 import java.util.ArrayList;
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -17,6 +18,7 @@ import service.ProdutoService;
  * @author Daniel
  */
 public class ViewSelecionarProduto extends javax.swing.JFrame {
+    private iListener listener;
 
     private ProdutoDTO produtoDTO;
     private ArrayList<ProdutoDTO> listaProdutos;
@@ -28,7 +30,19 @@ public class ViewSelecionarProduto extends javax.swing.JFrame {
     public ViewSelecionarProduto() {
         initComponents();
         atualizaGrid();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLayout(null);
+        setLocationRelativeTo(null); 
     }
+ 
+    public ViewSelecionarProduto(iListener listerner) {
+        this.listener = listerner;
+        atualizaGrid();
+        initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLayout(null);
+        setLocationRelativeTo(null);    
+    }    
     
     public void atualizaGrid(){
       try {
@@ -127,7 +141,24 @@ public class ViewSelecionarProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = tbProdutos.getSelectedRow();
+        if (selectedRow != -1) {
+            //Object codObj     = tbClientes.getValueAt(selectedRow, 0);
+            Object nomeObj  = tbProdutos.getValueAt(selectedRow, 0);//nome do cliente
+            Object valorObj = tbProdutos.getValueAt(selectedRow, 1);
+
+            //int cod        = (int) codObj;
+            String nome    = (String) nomeObj;
+            double valor   = ((Number) valorObj).doubleValue();
+            double qtd     = Double.parseDouble(tfQuantidade.getText());
+            listener.Produto(1, nome, valor, qtd);
+        }
+        // fecha janela ao criar no botão
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                dispose(); // Ensure the current instance of ServicoFrame is closed
+            }
+        });
     }//GEN-LAST:event_btAdicionarActionPerformed
 
     

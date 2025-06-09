@@ -202,7 +202,8 @@ public class ViewPrincipal extends javax.swing.JFrame implements iListener {
     }//GEN-LAST:event_tfQuantidadeActionPerformed
 
     private void btSelecionarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelecionarProdutoActionPerformed
-        new ViewSelecionarProduto().setVisible(true);
+        ViewSelecionarProduto viewSelecionarProduto = new ViewSelecionarProduto(this);
+        viewSelecionarProduto.setVisible(true);
     }//GEN-LAST:event_btSelecionarProdutoActionPerformed
 
     private void btAdicionarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarProdutoActionPerformed
@@ -234,8 +235,9 @@ public class ViewPrincipal extends javax.swing.JFrame implements iListener {
     }
 
     @Override
-    public void Produto(int cod, String desc, double vlr) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void Produto(int cod, String desc, double vlr, double qtd) {
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) tbProdutos.getModel();
+        model.addRow(new Object[]{cod, desc, vlr, qtd});
     }
 
 }
