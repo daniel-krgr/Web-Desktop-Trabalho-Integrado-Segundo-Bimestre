@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import dto.VendaDTO;
+import service.VendaService;
 
 /**
  *
@@ -36,7 +38,6 @@ public class ViewPrincipal extends javax.swing.JFrame implements iListener {
         tbProdutos.setModel(modelo);
     }
     
-    public 
 
 
     /**
@@ -184,7 +185,19 @@ public class ViewPrincipal extends javax.swing.JFrame implements iListener {
     }//GEN-LAST:event_btSelecionarProdutoActionPerformed
 
     private void btEnviarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEnviarVendaActionPerformed
-        // TODO add your handling code here:
+        try {
+            // Criar a venda
+            VendaDTO venda = new VendaDTO();
+            venda.setObservacoes("Venda realizada em balcão");
+            venda.setValorTotal(150.00);      // Total da venda
+            venda.setClienteId(1);            // ID do cliente (exemplo)
+
+            // Enviar para o serviço
+            VendaService.criarVenda(venda);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btEnviarVendaActionPerformed
 
    

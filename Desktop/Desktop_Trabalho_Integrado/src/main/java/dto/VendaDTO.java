@@ -12,7 +12,7 @@ public class VendaDTO {
 
     private String observacoes;
     private Double valorTotal;
-    private Long clienteId;
+    private int clienteId;
 
     public String getObservacoes() {
         return observacoes;
@@ -30,11 +30,11 @@ public class VendaDTO {
         this.valorTotal = valorTotal;
     }
 
-    public Long getClienteId() {
+    public int getClienteId() {
         return clienteId;
     }
 
-    public void setClienteId(Long clienteId) {
+    public void setClienteId(int clienteId) {
         this.clienteId = clienteId;
     }
 }
