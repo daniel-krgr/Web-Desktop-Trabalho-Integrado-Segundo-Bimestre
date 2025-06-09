@@ -27,10 +27,13 @@ public class ViewPrincipal extends javax.swing.JFrame implements iListener {
      */
     public ViewPrincipal() {
         initComponents();
+        atualizaGrid();
     }
 
     public void atualizaGrid(){
-        
+        String[] colunas = {"Cod", "Descrição", "R$ Valor", "Qtd"};
+        DefaultTableModel modelo = new DefaultTableModel(colunas, 0);
+        tbProdutos.setModel(modelo);
     }
     
     
