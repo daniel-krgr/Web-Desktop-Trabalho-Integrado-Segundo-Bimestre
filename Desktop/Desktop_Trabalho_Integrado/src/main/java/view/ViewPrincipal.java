@@ -24,6 +24,8 @@ public class ViewPrincipal extends javax.swing.JFrame implements iListener {
     
     int idCliente;
     int idVenda;
+    double valorTotalVenda = 0;
+    
 
     private ItemVendaDAO itemVendaDAO;
     private ArrayList<ItemVenda> itensVenda;
@@ -35,10 +37,11 @@ public class ViewPrincipal extends javax.swing.JFrame implements iListener {
     public ViewPrincipal() {
         initComponents();
         atualizaGrid();
+        btSelecionarProduto.setEnabled(false);
     }
 
     public void atualizaGrid(){
-        String[] colunas = {"Cod", "Descrição", "R$ Valor", "Qtd"};
+        String[] colunas = {"Cod", "Descrição", "Valor Unitaro","Valor Total", "Qtd"};
         DefaultTableModel modelo = new DefaultTableModel(colunas, 0);
         tbProdutos.setModel(modelo);
     }
@@ -213,7 +216,7 @@ public class ViewPrincipal extends javax.swing.JFrame implements iListener {
             // Criar a venda
             VendaDTO venda = new VendaDTO();
             venda.setObservacoes(tfObservacoes.getText());
-            venda.setValorTotal(150.00);      // Total da venda
+            venda.setValorTotal(0.1);      // Total da venda
             venda.setClienteId(idCliente);    // ID do cliente (exemplo)
 
             // Enviar para o serviço
@@ -221,11 +224,15 @@ public class ViewPrincipal extends javax.swing.JFrame implements iListener {
             idVenda = retorno.getId();
             jLabel1.setText("Venda cod:"+retorno.getId());
 
+            btSelecionarProduto.setEnabled(true);
+            
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btEnviarVendaActionPerformed
 
+    
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -254,17 +261,23 @@ public class ViewPrincipal extends javax.swing.JFrame implements iListener {
 
     @Override
     public void Produto(int cod, String desc, double vlr, int qtd) {
+        
+        double valorTotalItem = vlr*qtd;
+        valorTotalVenda = valorTotalVenda + valorTotalItem;
+        lbValorTotal.setText(""+valorTotalVenda);
+        
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) tbProdutos.getModel();
-        model.addRow(new Object[]{cod, desc, vlr, qtd});
+        model.addRow(new Object[]{cod, desc, vlr, qtd,valorTotalItem});
         try {
             ItemVendaDTO itemVenda = new ItemVendaDTO();
             itemVenda.setProdutoId(cod);
             itemVenda.setQuantidade(qtd);
-            itemVenda.setValorTotal(vlr);
-            itemVenda.setValorTotal(vlr);
+            itemVenda.setValorUnitario(vlr);
+            itemVenda.setValorTotal(valorTotalItem);
             itemVenda.setVendaId(idVenda);
             
             ItemVendaService.criarItemVenda(itemVenda);
+            
             
         } catch (Exception e) {
             e.printStackTrace();
