@@ -9,6 +9,6 @@ package view;
  * @author Ricardo
  */
 public interface iListener {
-    void Produto(int cod, String desc, double vlr, double qtd);
+    void Produto(int cod, String desc, double vlr, int qtd);
     void Cliente (int cod, String nome);
 }

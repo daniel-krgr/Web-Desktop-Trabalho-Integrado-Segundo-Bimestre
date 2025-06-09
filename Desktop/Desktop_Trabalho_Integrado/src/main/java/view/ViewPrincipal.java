@@ -5,6 +5,7 @@
 package view;
 
 import dao.ItemVendaDAO;
+import dto.ItemVendaDTO;
 import model.ItemVenda;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import dto.VendaDTO;
 import service.VendaService;
+import service.ItemVendaService;
 
 /**
  *
@@ -21,6 +23,7 @@ import service.VendaService;
 public class ViewPrincipal extends javax.swing.JFrame implements iListener {
     
     int idCliente;
+    int idVenda;
 
     private ItemVendaDAO itemVendaDAO;
     private ArrayList<ItemVenda> itensVenda;
@@ -214,7 +217,9 @@ public class ViewPrincipal extends javax.swing.JFrame implements iListener {
             venda.setClienteId(idCliente);    // ID do cliente (exemplo)
 
             // Enviar para o serviço
-            VendaService.criarVenda(venda);
+            VendaDTO retorno = VendaService.criarVenda(venda);
+            idVenda = retorno.getId();
+            jLabel1.setText("Venda cod:"+retorno.getId());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -243,14 +248,27 @@ public class ViewPrincipal extends javax.swing.JFrame implements iListener {
     @Override
     public void Cliente(int cod, String nome) {
         // adiciona os dados na tabela
-        lbClienteSelecionado.setText(nome + " - cod:" + cod);
+        lbClienteSelecionado.setText(nome + " - cod: " + cod);
         idCliente = cod;
     }
 
     @Override
-    public void Produto(int cod, String desc, double vlr, double qtd) {
+    public void Produto(int cod, String desc, double vlr, int qtd) {
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) tbProdutos.getModel();
         model.addRow(new Object[]{cod, desc, vlr, qtd});
+        try {
+            ItemVendaDTO itemVenda = new ItemVendaDTO();
+            itemVenda.setProdutoId(cod);
+            itemVenda.setQuantidade(qtd);
+            itemVenda.setValorTotal(vlr);
+            itemVenda.setValorTotal(vlr);
+            itemVenda.setVendaId(idVenda);
+            
+            ItemVendaService.criarItemVenda(itemVenda);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

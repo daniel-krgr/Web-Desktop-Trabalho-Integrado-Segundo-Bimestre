@@ -14,8 +14,8 @@ public class ItemVendaDTO {
     private int quantidade;
     private double valorUnitario;
     private double valorTotal;
-    private Long produtoId;
-    private Long vendaId;
+    private int produtoId;
+    private int vendaId;
 
     
     public int getId() {
@@ -50,19 +50,19 @@ public class ItemVendaDTO {
         this.valorTotal = valorTotal;
     }
 
-    public Long getProdutoId() {
+    public int getProdutoId() {
         return produtoId;
     }
 
-    public void setProdutoId(Long produtoId) {
+    public void setProdutoId(int produtoId) {
         this.produtoId = produtoId;
     }
 
-    public Long getVendaId() {
+    public int getVendaId() {
         return vendaId;
     }
 
-    public void setVendaId(Long vendaId) {
+    public void setVendaId(int vendaId) {
         this.vendaId = vendaId;
     }
 }

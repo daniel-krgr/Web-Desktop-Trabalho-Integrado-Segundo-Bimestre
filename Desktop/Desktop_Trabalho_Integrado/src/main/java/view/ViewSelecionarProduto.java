@@ -220,7 +220,7 @@ public class ViewSelecionarProduto extends javax.swing.JFrame {
             int cod        = (int) codObj;
             String nome    = (String) nomeObj;
             double valor   = ((Number) valorObj).doubleValue();
-            double qtd     = Double.parseDouble(tfQuantidade.getText());
+            int qtd     = Integer.parseInt(tfQuantidade.getText());
             listener.Produto(cod, nome, valor, qtd);
         }
         // fecha janela ao criar no botão
